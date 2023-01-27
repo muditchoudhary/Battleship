@@ -1,35 +1,67 @@
 const Gameboard = () => {
+    
+    /**
+     * Find the ship which has been attacked
+     * @param {number} row 
+     * @param {number} col 
+     * @returns that ship where given coordinates lies inside that ship's coordinates range
+     */
+    const whichShip = (row, col) => {
+        for (const ship of ships) {
+            if (ship.row !== row) {
+                continue
+            } else {
+                if (ship.colEnd >= col >= ship.colStart) return ship;
+            }
+        }
+    }
 
-    let assertRowInRange = (row) => {
+    const recieveAttack = (row, col) => {
+        if (board[row][col] === 1) {
+            let ship = whichShip(row, col);
+            ship.hit();
+            board[row][col] = 3;
+        } else {
+            board[row][col] = 2;
+        }
+    }
+
+    const assertRowInRange = (row) => {
         if (row >= boardSize) throw new Error("Row must be less than 10");
     }
 
-    let assertColInRange = (col) => {
+    const assertColInRange = (col) => {
         if (col >= boardSize) throw new Error("Col must be less than 10");
     }
 
-    let assertBlocksLength = (row, col, shipLength) => {
+    const assertBlocksLength = (row, col, shipLength) => {
         const subRowArr = board[row].slice(col);
         if (subRowArr.length < shipLength) throw new Error("Choose coordinates where total blocks equal or greater than ship's length");
     }
 
-    let assertShipsOverlap = (row, col, shipLength)  => {
+    const assertShipsOverlap = (row, col, shipLength)  => {
         const subRowArr = board[row].slice(col);
         for (let block of subRowArr) {
             if (block === 1) throw new Error("Choose coordinates where a ship should not be placed already");
         }
     }
 
-    let placeShip = (newShip, row, col) => {
+    const placeShip = (newShip, row, col) => {
         let shipLength = newShip.length;
         assertRowInRange(row);
         assertColInRange(col);
         assertBlocksLength(row, col, shipLength);
         assertShipsOverlap(row, col, shipLength);
-        while (shipLength > 0) {
-            board[row][col++] = 1;
-            shipLength--;
+        let n = shipLength;
+        let r = row;
+        let c = col;
+        while (n > 0) {
+            board[r][c++] = 1;
+            n--;
         }
+        // Seting ship coordinates in ship object
+        newShip.setShipCoordinates(row, col, shipLength);
+        ships.push(newShip);
     }
 
     let board = new Array(10);
@@ -47,14 +79,10 @@ const Gameboard = () => {
     }
 
 
-    let airCraft = ship(7);
-    let airCraftCoordinates = {row: 4, col: 7};
-    let battleship = ship(6);
-    let cruiser = ship(5);
-    let submarine = ship(4);
-    let destroyer = ship(3);
+    
+    let ships = [];
 
-    return {board, placeShip}
+    return {get board() {return board}, placeShip, recieveAttack}
     
 }
 

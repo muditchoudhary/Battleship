@@ -23,3 +23,11 @@ test("isSunk() returns false, when ship not sunk", () => {
     myShip.hit();
     expect(myShip.isSunk()).toBeFalsy();
 })
+
+test("setShipCoordinates(3, 0, 6) should set ship coordinates", () => {
+    const battleship = ship(6);
+    battleship.setShipCoordinates(3, 0, battleship.length);
+    expect(battleship.row).toBe(3);
+    expect(battleship.colStart).toBe(0);
+    expect(battleship.colEnd).toBe(5);
+})

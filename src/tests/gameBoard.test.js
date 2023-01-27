@@ -42,3 +42,45 @@ test("placeShip(battleship, 6, 4) should throw Choose coordinates where a ship s
 
     expect(() => {myBoard.placeShip(battleship, 6, 4)}).toThrow("Choose coordinates where a ship should not be placed already");
 })
+
+test("recieveAttack(1, 3) should attack the Battleship ship", () => {
+    const airCraft = ship(7);
+    const battleship = ship(6);
+    const cruiser = ship(5);
+    const submarine = ship(4);
+    const destroyer = ship(3);
+
+    const myBoard = board();
+    // Placing the ships
+    myBoard.placeShip(airCraft, 0, 2);
+    myBoard.placeShip(battleship, 1, 0);
+    myBoard.placeShip(cruiser, 3, 2);
+    myBoard.placeShip(submarine, 9, 2);
+    myBoard.placeShip(destroyer, 5, 1);
+
+    myBoard.recieveAttack(1, 3);
+
+    expect(myBoard.board[1][3]).toBe(3);
+    expect(battleship.hitCount).toBe(1);
+})
+
+test("recieveAttack(1, 6) should miss the attack on Battleship Ship", () => {
+    const airCraft = ship(7);
+    const battleship = ship(6);
+    const cruiser = ship(5);
+    const submarine = ship(4);
+    const destroyer = ship(3);
+
+    const myBoard = board();
+    // Placing the ships
+    myBoard.placeShip(airCraft, 0, 2);
+    myBoard.placeShip(battleship, 1, 0);
+    myBoard.placeShip(cruiser, 3, 2);
+    myBoard.placeShip(submarine, 9, 2);
+    myBoard.placeShip(destroyer, 5, 1);
+
+    myBoard.recieveAttack(1, 6);
+
+    expect(myBoard.board[1][6]).toBe(2);
+    expect(battleship.hitCount).toBe(0);
+})
