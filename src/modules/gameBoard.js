@@ -1,4 +1,18 @@
 const Gameboard = () => {
+
+    /**
+     * Check if all the ships have sunk
+     * @returns boolean
+     */
+    const haveShipsSunk = () => {
+        let allShipsSunk = 0;
+        for (const ship of ships) {
+            if (ship.isSunk()) allShipsSunk++;
+        }
+
+        if (allShipsSunk >= 5) return true;
+        return false;
+    }
     
     /**
      * Find the ship which has been attacked
@@ -16,6 +30,11 @@ const Gameboard = () => {
         }
     }
 
+    /**
+     * Attack on the given coordinate
+     * @param {number} row 
+     * @param {number} col 
+     */
     const recieveAttack = (row, col) => {
         if (board[row][col] === 1) {
             let ship = whichShip(row, col);
@@ -46,6 +65,12 @@ const Gameboard = () => {
         }
     }
 
+    /**
+     * Place the Ship object on the board grid array
+     * @param {object} newShip 
+     * @param {number} row 
+     * @param {number} col 
+     */
     const placeShip = (newShip, row, col) => {
         let shipLength = newShip.length;
         assertRowInRange(row);
@@ -78,11 +103,9 @@ const Gameboard = () => {
         }
     }
 
-
-    
     let ships = [];
 
-    return {get board() {return board}, placeShip, recieveAttack}
+    return {get board() {return board}, placeShip, recieveAttack, haveShipsSunk, }
     
 }
 

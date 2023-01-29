@@ -22,7 +22,7 @@ const Ship = (len) => {
     let colStart;
     let colEnd;
 
-	return { hit, isSunk, get length() {return length}, get hitCount() {return hitCount}, get sunk() {return sunk}, setShipCoordinates, get row() {return row}, get colStart() {return colStart}, get colEnd() {return colEnd} };
+	return { hit, isSunk, get length() {return length}, get hitCount() {return hitCount}, get sunk() {return sunk}, set sunk(v) {sunk = v}, setShipCoordinates, get row() {return row}, get colStart() {return colStart}, get colEnd() {return colEnd} };
 };
 
 module.exports = Ship;

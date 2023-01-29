@@ -84,3 +84,30 @@ test("recieveAttack(1, 6) should miss the attack on Battleship Ship", () => {
     expect(myBoard.board[1][6]).toBe(2);
     expect(battleship.hitCount).toBe(0);
 })
+
+test("haveShipsSunk() should return true when all ships have been sunk", () => {
+    const airCraft = ship(7);
+    const battleship = ship(6);
+    const cruiser = ship(5);
+    const submarine = ship(4);
+    const destroyer = ship(3);
+
+    const myBoard = board();
+
+    // Placing the ships
+    myBoard.placeShip(airCraft, 0, 2);
+    myBoard.placeShip(battleship, 1, 0);
+    myBoard.placeShip(cruiser, 3, 2);
+    myBoard.placeShip(submarine, 9, 2);
+    myBoard.placeShip(destroyer, 5, 1);
+
+    // Changing ships sunk value to true for testing
+    airCraft.sunk = true;
+    battleship.sunk = true;
+    cruiser.sunk = true;
+    submarine.sunk = true;
+    destroyer.sunk = true;
+
+    expect(myBoard.haveShipsSunk()).toBeTruthy();
+
+})
