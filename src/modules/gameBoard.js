@@ -31,7 +31,7 @@ const Gameboard = () => {
     }
 
     /**
-     * Attack on the given coordinate
+     * Attack on the given coordinates
      * @param {number} row 
      * @param {number} col 
      */
