@@ -3,17 +3,13 @@ const Menu = () => {
 
     const createBackgroundVideo = (parent, src) => {
         const bgVideo = document.createElement("video");
-        const test = document.createElement("div");
         bgVideo.src = src;
         bgVideo.controls = false;
         bgVideo.autoplay = true;
         bgVideo.muted = true;
         bgVideo.loop = true;
         bgVideo.classList.add("bg-video");
-        test.classList.add("test");
-
         parent.appendChild(bgVideo);
-        parent.appendChild(test);
     };
 
     const createGameHeaading = (parent) => {
@@ -59,7 +55,18 @@ const Menu = () => {
         parent.appendChild(box);
     };
 
-    return { createBackgroundVideo, createGameHeaading, createNameField };
+    const createBackgroundAudio = (parent, src, volume) => {
+        const bgAudio = document.createElement("audio");
+        bgAudio.src = src;
+        bgAudio.controls = false;
+        bgAudio.autoplay = true;
+        bgAudio.loop = true;
+        bgAudio.volume = volume;
+        // bgAudio.classList.add("bg-audio");
+        parent.appendChild(bgAudio);
+    };
+
+    return { createBackgroundVideo, createGameHeaading, createNameField, createBackgroundAudio };
 };
 
 export default Menu;
