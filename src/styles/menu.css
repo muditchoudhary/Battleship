@@ -228,3 +228,13 @@
 .button:hover span:nth-child(4) {
     bottom: 50%;
 }
+
+/* Styles for screen lower than or equal to 1024x900 */
+@media screen and (max-width: 1024px) and (max-height: 900px) {
+    .box {
+        padding: 60px 0px;
+    }
+    .input-box {
+        padding: 80px 80px;
+    }
+}
