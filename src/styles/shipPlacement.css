@@ -30,3 +30,9 @@
     width: 100%;
     height: 100%;
 }
+.grid-hover {
+    background: green;
+}
+.grid-not-valid {
+    background: red;
+}
