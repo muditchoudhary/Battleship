@@ -18,10 +18,18 @@ const ShipPlacementScreen = () => {
     let plyerBoard;
     let currentHighLightedShip;
 
+    /**
+     * Remove a hightlighter border from current
+     * selected ship on ship selection.
+     */
     const removeShipHighlighter = () => {
         currentHighLightedShip.classList.remove("ship-highlight");
     };
 
+    /**
+     * Add a highlighter border on a ship img
+     * that is going to be placed on grid.
+     */
     const createShipHighlighter = () => {
         if (currentShip < 5) {
             const allShips = document.querySelectorAll(".ship-table-row");
@@ -29,6 +37,14 @@ const ShipPlacementScreen = () => {
             currentHighLightedShip.classList.add("ship-highlight");
         }
     };
+
+    /**
+     * Check if the targetGrid & related grids
+     * are valid to place a ship. Check for overlapping,
+     * must have mininum block to place a ship.
+     * @param {DOM Element} targetGrid
+     * @returns boolean
+     */
     const isGridPosValid = (targetGrid) => {
         const pos = targetGrid.getAttribute("data-pos")[1];
         const row = Number(targetGrid.getAttribute("data-pos")[0]);
@@ -42,6 +58,13 @@ const ShipPlacementScreen = () => {
         return false;
     };
 
+    /**
+     * If valid, returns all the Grid blocks element
+     * on which a ship will going to be placed. Otherwise
+     * a string.
+     * @param {DOM Element} targetGrid
+     * @returns String | Array of DOM Elements
+     */
     const getRelatedGrids = (targetGrid) => {
         const allGrids = [targetGrid];
         if (isGridPosValid(targetGrid)) {
@@ -65,6 +88,12 @@ const ShipPlacementScreen = () => {
         return "gridNotValid";
     };
 
+    /**
+     * Place the ship on Player's gameBoard
+     * object. Highlighg the DOM grid as well with
+     * some styling.
+     * @param {event} event
+     */
     const placeShipOnGrid = (event) => {
         if (currentShip < 5) {
             const targetGrid = event.target;
@@ -79,11 +108,16 @@ const ShipPlacementScreen = () => {
                 currentShip += 1;
                 removeShipHighlighter();
                 createShipHighlighter();
-                console.log(plyerBoard.board);
             }
         }
     };
 
+    /**
+     * Un-highliht the grid block whenever the
+     * mouse exits a grid block.
+     *
+     * @param {event} event
+     */
     const placementMouseHoverExit = (event) => {
         if (currentShip < 5) {
             const targetGrid = event.target;
@@ -97,6 +131,12 @@ const ShipPlacementScreen = () => {
             }
         }
     };
+    /**
+     * Highlights the grid block whenever the mouse
+     * enter a grid block to show if the block valid
+     * or not.
+     * @param {event} event
+     */
     const placementMouseHover = (event) => {
         if (currentShip < 5) {
             const targetGrid = event.target;
