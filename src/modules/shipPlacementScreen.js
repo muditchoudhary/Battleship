@@ -16,7 +16,19 @@ const ShipPlacementScreen = () => {
     const LASTGRIDPOS = 9;
     let currentShip = 0;
     let plyerBoard;
+    let currentHighLightedShip;
 
+    const removeShipHighlighter = () => {
+        currentHighLightedShip.classList.remove("ship-highlight");
+    };
+
+    const createShipHighlighter = () => {
+        if (currentShip < 5) {
+            const allShips = document.querySelectorAll(".ship-table-row");
+            currentHighLightedShip = allShips[currentShip];
+            currentHighLightedShip.classList.add("ship-highlight");
+        }
+    };
     const isGridPosValid = (targetGrid) => {
         const pos = targetGrid.getAttribute("data-pos")[1];
         const row = Number(targetGrid.getAttribute("data-pos")[0]);
@@ -65,6 +77,8 @@ const ShipPlacementScreen = () => {
                     allGrids[i].classList.add("ship-placed-on-grid");
                 }
                 currentShip += 1;
+                removeShipHighlighter();
+                createShipHighlighter();
                 console.log(plyerBoard.board);
             }
         }
@@ -157,7 +171,8 @@ const ShipPlacementScreen = () => {
         container.classList.add("ship-table");
         for (let i = 0; i < TOTALSHIPS; i += 1) {
             const row = document.createElement("img");
-            row.classList.add("ship-talbe-row");
+            row.classList.add("ship-table-row");
+            // i == 0 ? row.classList.add("ship-ta")
             row.src = shipsImgs[i];
             container.appendChild(row);
         }
@@ -173,6 +188,7 @@ const ShipPlacementScreen = () => {
         createGrid(container);
         createShipSelector(container);
         parent.appendChild(container);
+        createShipHighlighter();
     };
 
     return { createScreen };
