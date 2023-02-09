@@ -35,4 +35,9 @@
 }
 .grid-not-valid {
     background: red;
+    cursor: not-allowed;
+}
+.ship-placed-on-grid {
+    background: green;
+    cursor: not-allowed;
 }

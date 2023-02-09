@@ -5,6 +5,7 @@ import DESTROYER from "../assets/imgs/destroyer.svg";
 import SUBMARINE from "../assets/imgs/submarine.svg";
 
 const ship = require("./ship");
+const board = require("./gameBoard");
 
 const ShipPlacementScreen = () => {
     const GRIDSIZE = 10;
@@ -12,12 +13,19 @@ const ShipPlacementScreen = () => {
     const shipsImgs = [AIRCRAFT, BATTLESHIP, CRUISER, DESTROYER, SUBMARINE];
     const PLAYERSHIPS = [];
     const LASTGRIDPOS = 9;
-    const currentShip = 0;
+    let currentShip = 0;
+    let plyerBoard;
 
     const isGridPosValid = (targetGrid) => {
         const pos = targetGrid.getAttribute("data-pos")[1];
+        const row = Number(targetGrid.getAttribute("data-pos")[0]);
+        const col = Number(targetGrid.getAttribute("data-pos")[1]);
+        let relatedGrids = plyerBoard.board[row];
         const currentShipLen = PLAYERSHIPS[currentShip].length;
-        if (LASTGRIDPOS - Number(pos) >= currentShipLen) return true;
+        relatedGrids = relatedGrids.slice(col, currentShipLen + col);
+
+        if (LASTGRIDPOS - Number(pos) + 1 >= currentShipLen && !relatedGrids.includes(1))
+            return true;
         return false;
     };
 
@@ -44,28 +52,54 @@ const ShipPlacementScreen = () => {
         return "gridNotValid";
     };
 
+    const placeShipOnGrid = (event) => {
+        if (currentShip < 5) {
+            const targetGrid = event.target;
+            if (isGridPosValid(targetGrid)) {
+                const allGrids = getRelatedGrids(targetGrid);
+                const row = Number(targetGrid.getAttribute("data-pos")[0]);
+                const col = Number(targetGrid.getAttribute("data-pos")[1]);
+                plyerBoard.placeShip(PLAYERSHIPS[currentShip], row, col);
+                for (const grid of allGrids) {
+                    grid.classList.add("ship-placed-on-grid");
+                }
+                currentShip += 1;
+                console.log(plyerBoard.board);
+            }
+        }
+    };
+
     const placementMouseHoverExit = (event) => {
-        const targetGrid = event.target;
-        const allGrids = getRelatedGrids(event.target);
-        if (allGrids === "gridNotValid") {
-            targetGrid.classList.remove("grid-not-valid");
-        } else {
-            for (const grid of allGrids) {
-                grid.classList.remove("grid-hover");
+        if (currentShip < 5) {
+            const targetGrid = event.target;
+            const allGrids = getRelatedGrids(event.target);
+            if (allGrids === "gridNotValid") {
+                targetGrid.classList.remove("grid-not-valid");
+            } else {
+                for (const grid of allGrids) {
+                    grid.classList.remove("grid-hover");
+                }
             }
         }
     };
     const placementMouseHover = (event) => {
-        const targetGrid = event.target;
-        const allGrids = getRelatedGrids(event.target);
-        if (allGrids === "gridNotValid") {
-            targetGrid.classList.add("grid-not-valid");
-        } else {
-            for (const grid of allGrids) {
-                grid.classList.add("grid-hover");
+        if (currentShip < 5) {
+            const targetGrid = event.target;
+            const allGrids = getRelatedGrids(event.target);
+            if (allGrids === "gridNotValid") {
+                targetGrid.classList.add("grid-not-valid");
+            } else {
+                for (const grid of allGrids) {
+                    grid.classList.add("grid-hover");
+                }
             }
         }
     };
+
+    const initializePlayerGrid = () => {
+        plyerBoard = board();
+    };
+
     const initializePlayerShips = () => {
         const AIRCRAFTLEN = 6;
         const BATTLESHIPLEN = 5;
@@ -107,6 +141,7 @@ const ShipPlacementScreen = () => {
                 grid.setAttribute("data-pos", String(i) + String(j));
                 grid.addEventListener("mouseover", placementMouseHover);
                 grid.addEventListener("mouseleave", placementMouseHoverExit);
+                grid.addEventListener("click", placeShipOnGrid);
                 grid.classList.add("grid");
                 row.appendChild(grid);
             }
@@ -130,6 +165,7 @@ const ShipPlacementScreen = () => {
 
     const createScreen = (parent, src) => {
         initializePlayerShips();
+        initializePlayerGrid();
         const container = document.createElement("div");
         container.classList.add("main-container");
         createBackgroundVideo(container, src);
