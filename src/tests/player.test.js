@@ -1,5 +1,7 @@
-const player = require('../modules/player');
-const board = require('../modules/gameBoard');
+const player = require("../modules/player");
+const board = require("../modules/gameBoard");
+
+/* global test, expect */
 
 test("attack(3, 0) should change the given coordinate cell's value to 2", () => {
     const playerBoard = board();
@@ -11,8 +13,9 @@ test("attack(3, 0) should change the given coordinate cell's value to 2", () => 
     const boardArr = enemyBoard.board;
 
     expect(boardArr[3][0]).toStrictEqual(2);
-})
+});
 
+// This test is not complete. Need to DO IT.
 test("attack() should change the given coordinate cell's value to 2", () => {
     const playerBoard = board();
     const enemyBoard = board();
@@ -21,6 +24,4 @@ test("attack() should change the given coordinate cell's value to 2", () => {
     robo.attack();
 
     const boardArr = enemyBoard.board;
-
-    
-})
+});

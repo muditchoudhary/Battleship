@@ -1,6 +1,4 @@
 const Menu = () => {
-    const playerName = null;
-
     const createBackgroundVideo = (parent, src) => {
         const bgVideo = document.createElement("video");
         bgVideo.src = src;
@@ -41,7 +39,7 @@ const Menu = () => {
 
         const playBtn = document.createElement("a");
         playBtn.textContent = "Play";
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i += 1) {
             playBtn.append(document.createElement("span"));
         }
         playBtn.classList.add("button");
@@ -62,7 +60,6 @@ const Menu = () => {
         bgAudio.autoplay = true;
         bgAudio.loop = true;
         bgAudio.volume = volume;
-        // bgAudio.classList.add("bg-audio");
         parent.appendChild(bgAudio);
     };
 

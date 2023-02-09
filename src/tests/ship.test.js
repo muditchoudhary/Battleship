@@ -1,4 +1,6 @@
-const ship = require('../modules/ship');
+const ship = require("../modules/ship");
+
+/* global test, expect, jest */
 
 test("hit() method is called", () => {
     const mockHit = jest.fn();
@@ -6,7 +8,7 @@ test("hit() method is called", () => {
     myShip.hit = mockHit;
     myShip.hit();
     expect(mockHit).toHaveBeenCalled();
-})
+});
 
 test("isSunk() returns true, when ship sunk", () => {
     const myShip = ship(3);
@@ -14,15 +16,14 @@ test("isSunk() returns true, when ship sunk", () => {
     myShip.hit();
     myShip.hit();
     expect(myShip.isSunk()).toBeTruthy();
-
-})
+});
 
 test("isSunk() returns false, when ship not sunk", () => {
     const myShip = ship(3);
     myShip.hit();
     myShip.hit();
     expect(myShip.isSunk()).toBeFalsy();
-})
+});
 
 test("setShipCoordinates(3, 0, 6) should set ship coordinates", () => {
     const battleship = ship(6);
@@ -30,4 +31,4 @@ test("setShipCoordinates(3, 0, 6) should set ship coordinates", () => {
     expect(battleship.row).toBe(3);
     expect(battleship.colStart).toBe(0);
     expect(battleship.colEnd).toBe(5);
-})
+});

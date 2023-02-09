@@ -1,5 +1,7 @@
-const board = require('../modules/gameBoard');
-const ship = require('../modules/ship');
+const board = require("../modules/gameBoard");
+const ship = require("../modules/ship");
+
+/* global test, expect */
 
 test("placeShip(battleship, 3, 0) should place battle ship at row 3 & col 0", () => {
     const battleship = ship(6);
@@ -7,32 +9,37 @@ test("placeShip(battleship, 3, 0) should place battle ship at row 3 & col 0", ()
 
     myBoard.placeShip(battleship, 3, 0);
 
-    let boardArr = myBoard.board;
+    const boardArr = myBoard.board;
 
-    expect(boardArr[3]).toStrictEqual([1, 1, 1, 1, 1, 1, 0, 0, 0, 0])
-})
+    expect(boardArr[3]).toStrictEqual([1, 1, 1, 1, 1, 1, 0, 0, 0, 0]);
+});
 
 test("placeShip(battleship, 12, 0) should throw Row must be less than 10", () => {
     const battleship = ship(6);
     const myBoard = board();
 
-    expect(() => {myBoard.placeShip(battleship, 12, 0)}).toThrow("Row must be less than 10");
-})
-
+    expect(() => {
+        myBoard.placeShip(battleship, 12, 0);
+    }).toThrow("Row must be less than 10");
+});
 
 test("placeShip(battleship, 5, 10) should throw Col must be less than 10", () => {
     const battleship = ship(6);
     const myBoard = board();
 
-    expect(() => {myBoard.placeShip(battleship, 5, 10)}).toThrow("Col must be less than 10");
-})
+    expect(() => {
+        myBoard.placeShip(battleship, 5, 10);
+    }).toThrow("Col must be less than 10");
+});
 
 test("placeShip(battleship, 5, 5) should throw Choose coordinates where total blocks equal or greater than ship's length", () => {
     const battleship = ship(6);
     const myBoard = board();
 
-    expect(() => {myBoard.placeShip(battleship, 5, 5)}).toThrow("Choose coordinates where total blocks equal or greater than ship's length");
-})
+    expect(() => {
+        myBoard.placeShip(battleship, 5, 5);
+    }).toThrow("Choose coordinates where total blocks equal or greater than ship's length");
+});
 
 test("placeShip(battleship, 6, 4) should throw Choose coordinates where a ship should not be placed already", () => {
     const submarine = ship(3);
@@ -40,8 +47,10 @@ test("placeShip(battleship, 6, 4) should throw Choose coordinates where a ship s
     const myBoard = board();
     myBoard.placeShip(submarine, 6, 2);
 
-    expect(() => {myBoard.placeShip(battleship, 6, 4)}).toThrow("Choose coordinates where a ship should not be placed already");
-})
+    expect(() => {
+        myBoard.placeShip(battleship, 6, 4);
+    }).toThrow("Choose coordinates where a ship should not be placed already");
+});
 
 test("recieveAttack(1, 3) should attack the Battleship ship", () => {
     const airCraft = ship(7);
@@ -62,7 +71,7 @@ test("recieveAttack(1, 3) should attack the Battleship ship", () => {
 
     expect(myBoard.board[1][3]).toBe(3);
     expect(battleship.hitCount).toBe(1);
-})
+});
 
 test("recieveAttack(1, 6) should miss the attack on Battleship Ship", () => {
     const airCraft = ship(7);
@@ -83,7 +92,7 @@ test("recieveAttack(1, 6) should miss the attack on Battleship Ship", () => {
 
     expect(myBoard.board[1][6]).toBe(2);
     expect(battleship.hitCount).toBe(0);
-})
+});
 
 test("haveShipsSunk() should return true when all ships have been sunk", () => {
     const airCraft = ship(7);
@@ -109,5 +118,4 @@ test("haveShipsSunk() should return true when all ships have been sunk", () => {
     destroyer.sunk = true;
 
     expect(myBoard.haveShipsSunk()).toBeTruthy();
-
-})
+});

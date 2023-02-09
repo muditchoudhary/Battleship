@@ -1,12 +1,29 @@
 const Gameboard = () => {
+    // Global Variables
+    const ships = [];
+    // eslint-disable-next-line prefer-const
+    let board = new Array(10);
+    const boardSize = 10;
+
+    // Declaration of Grid array
+    for (let i = 0; i < boardSize; i += 1) {
+        board[i] = new Array(10);
+    }
+    // Initilization of Grid array
+    for (let i = 0; i < boardSize; i += 1) {
+        for (let j = 0; j < boardSize; j += 1) {
+            board[i][j] = 0;
+        }
+    }
+
     /**
      * Check if all the ships have sunk
      * @returns boolean
      */
     const haveShipsSunk = () => {
         let allShipsSunk = 0;
-        for (const ship of ships) {
-            if (ship.isSunk()) allShipsSunk++;
+        for (let i = 0; i < ships.length; i += 1) {
+            if (ships[i].isSunk()) allShipsSunk += 1;
         }
 
         if (allShipsSunk >= 5) return true;
@@ -20,15 +37,21 @@ const Gameboard = () => {
      * @returns that ship where given coordinates lies inside that ship's coordinates range
      */
     const whichShip = (row, col) => {
-        for (const ship of ships) {
-            if (ship.row !== row) {
-                continue;
-            } else if (ship.colEnd >= col >= ship.colStart) return ship;
+        let attackedShip;
+        for (let i = 0; i < ships.length; i += 1) {
+            if (ships[i].row === row) {
+                if (ships[i].colEnd >= col >= ships[i].colStart) {
+                    attackedShip = ships[i];
+                    break;
+                }
+            }
         }
+        return attackedShip;
     };
 
     /**
-     * Attack on the given coordinates
+     * Attack on the given coordinates. If attack is successfull chnage
+     * the grid value to 3. If miss change the value to 2.
      * @param {number} row
      * @param {number} col
      */
@@ -60,8 +83,8 @@ const Gameboard = () => {
 
     const assertShipsOverlap = (row, col, shipLength) => {
         const subRowArr = board[row].slice(col, shipLength + col);
-        for (const block of subRowArr) {
-            if (block === 1)
+        for (let i = 0; i < subRowArr.length; i += 1) {
+            if (subRowArr[i] === 1)
                 throw new Error("Choose coordinates where a ship should not be placed already");
         }
     };
@@ -82,29 +105,14 @@ const Gameboard = () => {
         const r = row;
         let c = col;
         while (n > 0) {
-            board[r][c++] = 1;
-            n--;
+            board[r][c] = 1;
+            c += 1;
+            n -= 1;
         }
         // Seting ship coordinates in ship object
         newShip.setShipCoordinates(row, col, shipLength);
         ships.push(newShip);
     };
-
-    let board = new Array(10);
-    const boardSize = 10;
-
-    // Declaration of Grid array
-    for (let i = 0; i < boardSize; i++) {
-        board[i] = new Array(10);
-    }
-    // Initilization of Grid array
-    for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
-            board[i][j] = 0;
-        }
-    }
-
-    let ships = [];
 
     return {
         get board() {

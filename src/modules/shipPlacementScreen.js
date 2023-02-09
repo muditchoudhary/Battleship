@@ -8,6 +8,7 @@ const ship = require("./ship");
 const board = require("./gameBoard");
 
 const ShipPlacementScreen = () => {
+    // Global Variables
     const GRIDSIZE = 10;
     const TOTALSHIPS = 5;
     const shipsImgs = [AIRCRAFT, BATTLESHIP, CRUISER, DESTROYER, SUBMARINE];
@@ -45,7 +46,7 @@ const ShipPlacementScreen = () => {
                     pos = String(pos);
                 }
                 allGrids.push(document.querySelector(`[data-pos="${pos}"]`));
-                n--;
+                n -= 1;
             }
             return allGrids;
         }
@@ -60,8 +61,8 @@ const ShipPlacementScreen = () => {
                 const row = Number(targetGrid.getAttribute("data-pos")[0]);
                 const col = Number(targetGrid.getAttribute("data-pos")[1]);
                 plyerBoard.placeShip(PLAYERSHIPS[currentShip], row, col);
-                for (const grid of allGrids) {
-                    grid.classList.add("ship-placed-on-grid");
+                for (let i = 0; i < allGrids.length; i += 1) {
+                    allGrids[i].classList.add("ship-placed-on-grid");
                 }
                 currentShip += 1;
                 console.log(plyerBoard.board);
@@ -76,8 +77,8 @@ const ShipPlacementScreen = () => {
             if (allGrids === "gridNotValid") {
                 targetGrid.classList.remove("grid-not-valid");
             } else {
-                for (const grid of allGrids) {
-                    grid.classList.remove("grid-hover");
+                for (let i = 0; i < allGrids.length; i += 1) {
+                    allGrids[i].classList.remove("grid-hover");
                 }
             }
         }
@@ -89,8 +90,8 @@ const ShipPlacementScreen = () => {
             if (allGrids === "gridNotValid") {
                 targetGrid.classList.add("grid-not-valid");
             } else {
-                for (const grid of allGrids) {
-                    grid.classList.add("grid-hover");
+                for (let i = 0; i < allGrids.length; i += 1) {
+                    allGrids[i].classList.add("grid-hover");
                 }
             }
         }
@@ -133,10 +134,10 @@ const ShipPlacementScreen = () => {
 
     const createGrid = (parent) => {
         const container = document.createElement("div");
-        for (let i = 0; i < GRIDSIZE; i++) {
+        for (let i = 0; i < GRIDSIZE; i += 1) {
             const row = document.createElement("div");
             row.classList.add("row");
-            for (let j = 0; j < GRIDSIZE; j++) {
+            for (let j = 0; j < GRIDSIZE; j += 1) {
                 const grid = document.createElement("div");
                 grid.setAttribute("data-pos", String(i) + String(j));
                 grid.addEventListener("mouseover", placementMouseHover);
@@ -154,7 +155,7 @@ const ShipPlacementScreen = () => {
     const createShipSelector = (parent) => {
         const container = document.createElement("div");
         container.classList.add("ship-table");
-        for (let i = 0; i < TOTALSHIPS; i++) {
+        for (let i = 0; i < TOTALSHIPS; i += 1) {
             const row = document.createElement("img");
             row.classList.add("ship-talbe-row");
             row.src = shipsImgs[i];
