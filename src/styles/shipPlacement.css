@@ -1,12 +1,12 @@
 .main-container {
     display: flex;
-    padding: 130px 20px;
+    padding: 80px 72px;
 }
 .container {
     display: flex;
     flex-direction: column;
-    width: 600px;
-    height: 600px;
+    width: 700px;
+    height: 700px;
     border: 3px solid white;
     background: transparent;
     margin: 0 auto;
@@ -23,8 +23,8 @@
 .ship-table {
     display: flex;
     flex-direction: column;
-    width: 200px;
-    height: 600px;
+    width: 240px;
+    height: 730px;
 }
 .ship-table-row {
     width: 100%;
@@ -43,4 +43,9 @@
 }
 .ship-highlight {
     border-bottom: 3px solid #6eff3e;
+}
+.button {
+    position: absolute;
+    left: 40%;
+    top: 894px;
 }

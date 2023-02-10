@@ -18,6 +18,27 @@ const ShipPlacementScreen = () => {
     let plyerBoard;
     let currentHighLightedShip;
 
+    const createPlayButton = (parent) => {
+        const playBtn = document.createElement("a");
+        playBtn.textContent = "Play";
+        for (let i = 0; i < 4; i += 1) {
+            playBtn.append(document.createElement("span"));
+        }
+        playBtn.classList.add("button");
+        playBtn.style.setProperty("--color", "#6eff3e");
+        parent.appendChild(playBtn);
+    };
+
+    const createBackgroundAudio = (parent, src, volume) => {
+        const bgAudio = document.createElement("audio");
+        bgAudio.src = src;
+        bgAudio.controls = false;
+        bgAudio.autoplay = true;
+        bgAudio.loop = true;
+        bgAudio.volume = volume;
+        parent.appendChild(bgAudio);
+    };
+
     /**
      * Remove a hightlighter border from current
      * selected ship on ship selection.
@@ -228,10 +249,11 @@ const ShipPlacementScreen = () => {
         createGrid(container);
         createShipSelector(container);
         parent.appendChild(container);
+        createPlayButton(container);
         createShipHighlighter();
     };
 
-    return { createScreen };
+    return { createScreen, createBackgroundAudio };
 };
 
 export default ShipPlacementScreen;
