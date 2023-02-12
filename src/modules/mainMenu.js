@@ -18,7 +18,7 @@ const Menu = () => {
         parent.appendChild(h1);
     };
 
-    const createNameField = (parent) => {
+    const createNameField = (parent, buttonCallBack) => {
         const box = document.createElement("div");
         const inputFiledBox = document.createElement("div");
 
@@ -44,6 +44,7 @@ const Menu = () => {
         }
         playBtn.classList.add("button");
         playBtn.style.setProperty("--color", "#6eff3e");
+        playBtn.addEventListener("click", buttonCallBack);
 
         box.classList.add("box");
         inputFiledBox.classList.add("input-box");

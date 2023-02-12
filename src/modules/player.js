@@ -1,9 +1,19 @@
 const Player = (myBoard, enemyBoard) => {
+    let name;
+
     const attack = (row, col) => {
         enemyBoard.recieveAttack(row, col);
     };
 
-    return { attack };
+    return {
+        attack,
+        get name() {
+            return name;
+        },
+        set name(v) {
+            name = v;
+        },
+    };
 };
 
 const Robot = (myBoard, enemyBoard) => {
