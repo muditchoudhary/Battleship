@@ -5,17 +5,17 @@ import DESTROYER from "../assets/imgs/destroyer.svg";
 import SUBMARINE from "../assets/imgs/submarine.svg";
 
 const ship = require("./ship");
-const board = require("./gameBoard");
 
-const ShipPlacementScreen = () => {
+const ShipPlacementScreen = (playerBoard, switchScreenCallBack) => {
     // Global Variables
     const GRIDSIZE = 10;
     const TOTALSHIPS = 5;
     const shipsImgs = [AIRCRAFT, BATTLESHIP, CRUISER, DESTROYER, SUBMARINE];
     const PLAYERSHIPS = [];
     const LASTGRIDPOS = 9;
+    let haveShipPlaced = false;
     let currentShip = 0;
-    let plyerBoard;
+    const plyerBoard = playerBoard;
     let currentHighLightedShip;
 
     const createPlayButton = (parent) => {
@@ -24,7 +24,10 @@ const ShipPlacementScreen = () => {
         for (let i = 0; i < 4; i += 1) {
             playBtn.append(document.createElement("span"));
         }
-        playBtn.classList.add("button");
+        playBtn.classList.add("button", "button-two");
+        playBtn.addEventListener("click", () => {
+            switchScreenCallBack(haveShipPlaced);
+        });
         playBtn.style.setProperty("--color", "#6eff3e");
         parent.appendChild(playBtn);
     };
@@ -127,8 +130,10 @@ const ShipPlacementScreen = () => {
                     allGrids[i].classList.add("ship-placed-on-grid");
                 }
                 currentShip += 1;
+                currentShip === 5 ? (haveShipPlaced = true) : (haveShipPlaced = false);
                 removeShipHighlighter();
                 createShipHighlighter();
+                console.log(playerBoard.board);
             }
         }
     };
@@ -170,10 +175,6 @@ const ShipPlacementScreen = () => {
                 }
             }
         }
-    };
-
-    const initializePlayerGrid = () => {
-        plyerBoard = board();
     };
 
     const initializePlayerShips = () => {
@@ -242,7 +243,6 @@ const ShipPlacementScreen = () => {
 
     const createScreen = (parent, src) => {
         initializePlayerShips();
-        initializePlayerGrid();
         const container = document.createElement("div");
         container.classList.add("main-container");
         createBackgroundVideo(container, src);
