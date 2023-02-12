@@ -1,0 +1,27 @@
+.game-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-main-sub-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.board-heading {
+    font-size: 50px;
+    word-spacing: 20px;
+    padding: 20px 10px;
+    color: aliceblue;
+    text-decoration: underline;
+}
+
+.upper-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.message-displayer {
+    font-size: 41px;
+    padding: 22px 22px;
+}
