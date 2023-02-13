@@ -17,11 +17,11 @@ const DOM = () => {
     const playerBoard = board();
     const enemyBoard = board();
     const playerObj = player.Player(playerBoard, enemyBoard);
-    const robotObj = player.Robot(playerBoard, enemyBoard);
+    const robotObj = player.Robot(enemyBoard, playerBoard);
 
     const initializeMainGameScreen = () => {
         const robotShipPlacement = RobotShipPlacement(enemyBoard);
-        const mainGame = MainGame(playerBoard, enemyBoard);
+        const mainGame = MainGame(playerBoard, enemyBoard, playerObj, robotObj);
         mainGame.createBackgroundAudio(BODY, BGOCEAN, 0.8);
         mainGame.createBackgroundVideo(BODY, BGVIDEO);
         robotShipPlacement.placeShips();
@@ -47,6 +47,15 @@ const DOM = () => {
         return false;
     };
 
+    const switchToMaingame = (haveShipsPlaced) => {
+        if (haveShipsPlaced) {
+            clearParent(BODY);
+            initializeMainGameScreen();
+        } else {
+            alert("Please place ships!!");
+        }
+    };
+
     const initalizeShipPlacementScreen = () => {
         const shipScreen = ShipPlacementScreen(playerBoard, switchToMaingame);
         shipScreen.createScreen(BODY, BGVIDEO);
@@ -70,15 +79,6 @@ const DOM = () => {
         menu.createNameField(BODY, switchToShipSelectionScreen);
         menu.createBackgroundAudio(BODY, BGMUSIC, 0.3);
         menu.createBackgroundAudio(BODY, BGOCEAN, 0.6);
-    };
-
-    const switchToMaingame = (haveShipsPlaced) => {
-        if (haveShipsPlaced) {
-            clearParent(BODY);
-            initializeMainGameScreen();
-        } else {
-            alert("Please place ships!!");
-        }
     };
 
     return { initalizeMainMenu };

@@ -44,7 +44,7 @@
 .ship-highlight {
     border-bottom: 3px solid #6eff3e;
 }
-.button {
+.button-two {
     position: absolute;
     left: 40%;
     top: 894px;
@@ -60,7 +60,7 @@
         width: 140px;
         height: 485px;
     }
-    .button {
+    .button-two {
         left: 37%;
         top: 612px;
         padding: 15px 30px;
@@ -76,22 +76,22 @@
         width: 130px;
         height: 452px;
     }
-    .button {
+    .button-two {
         left: 39%;
         top: 540px;
         padding: 10px 20px;
         font-size: 20px;
     }
-    .button span:nth-child(1) {
+    .button-two span:nth-child(1) {
         left: -40px;
     }
-    .button span:nth-child(2) {
+    .button-two span:nth-child(2) {
         top: -40px;
     }
-    .button span:nth-child(3) {
+    .button-two span:nth-child(3) {
         right: -40px;
     }
-    .button span:nth-child(4) {
+    .button-two span:nth-child(4) {
         bottom: -40px;
     }
 }

@@ -28,6 +28,7 @@ const Ship = (len) => {
     return {
         hit,
         isSunk,
+        setShipCoordinates,
         get length() {
             return length;
         },
@@ -40,7 +41,6 @@ const Ship = (len) => {
         set sunk(v) {
             sunk = v;
         },
-        setShipCoordinates,
         get row() {
             return row;
         },

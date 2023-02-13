@@ -20,7 +20,8 @@ const Robot = (myBoard, enemyBoard) => {
     // Global Variables
     // Initializing an array for picking randome coordinates
     const boardCellsArr = [];
-    for (let i = 0; i < myBoard.board.length; i += 1) {
+    const GRIDLENGTH = myBoard.board.length;
+    for (let i = 0; i < GRIDLENGTH * GRIDLENGTH; i += 1) {
         boardCellsArr[i] = i;
     }
 

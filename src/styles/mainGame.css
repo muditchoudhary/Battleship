@@ -25,3 +25,15 @@
     font-size: 41px;
     padding: 22px 22px;
 }
+.pre-attack-hover {
+    background: green;
+}
+.grid-pointer {
+    cursor: crosshair;
+}
+.attack-miss {
+    background: wheat;
+}
+.attack-hit {
+    background: red;
+}

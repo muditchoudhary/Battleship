@@ -40,7 +40,7 @@ const Gameboard = () => {
         let attackedShip;
         for (let i = 0; i < ships.length; i += 1) {
             if (ships[i].row === row) {
-                if (ships[i].colEnd >= col >= ships[i].colStart) {
+                if (col >= ships[i].colStart && col <= ships[i].colEnd) {
                     attackedShip = ships[i];
                     break;
                 }
