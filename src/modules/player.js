@@ -24,6 +24,7 @@ const Robot = (myBoard, enemyBoard) => {
     for (let i = 0; i < GRIDLENGTH * GRIDLENGTH; i += 1) {
         boardCellsArr[i] = i;
     }
+    const name = "Wolly";
 
     /**
      * @returns Number - random element from boardCellArr
@@ -49,6 +50,9 @@ const Robot = (myBoard, enemyBoard) => {
     return {
         ...aPlayer,
         attack,
+        get name() {
+            return name;
+        },
     };
 };
 

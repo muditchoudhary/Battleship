@@ -43,3 +43,6 @@
     background: lightskyblue;
     cursor: not-allowed;
 }
+.game-over {
+    cursor: not-allowed;
+}

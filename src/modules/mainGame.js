@@ -29,6 +29,30 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
         }
     };
 
+    const displayWinner = (winnerName) => {
+        alert(`Game Over!! Captain ${winnerName} has won!!`);
+    };
+    const removeAllEventsFromGridCells = () => {
+        const containers = document.querySelectorAll(".container");
+        const secondContainer = containers[1];
+        for (let i = 0; i < GRIDSIZE; i += 1) {
+            for (let j = 0; j < GRIDSIZE; j += 1) {
+                const pos = String(i) + String(j);
+                const grid = secondContainer.querySelector(`[data-pos="${pos}"]`);
+                grid.classList.add("grid", "game-over");
+                grid.removeEventListener("click", attackByRobot);
+                grid.removeEventListener("mouseover", preAttackHover);
+                grid.removeEventListener("mouseleave", preAttackHoverExit);
+            }
+        }
+    };
+
+    const gameOver = (haveShipsSunk, WhichPlayer) => {
+        if (haveShipsSunk) {
+            removeAllEventsFromGridCells();
+            displayWinner(WhichPlayer.name);
+        }
+    };
     const checkPlayerAnyShipSunk = () => {
         checkAnyShipSunk(playerShipObjs, playerBoard);
     };
@@ -59,6 +83,8 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
         clearParent(parent);
         renderGrid(parent, "player", playerBoard);
         renderGrid(parent, "robot", robotBoard);
+        gameOver(playerBoard.haveShipsSunk(), Robot);
+        gameOver(robotBoard.haveShipsSunk(), Player);
     };
 
     const renderGrid = (parent, whoseBoard, board) => {

@@ -21,12 +21,14 @@ const Gameboard = () => {
      * @returns boolean
      */
     const haveShipsSunk = () => {
-        let allShipsSunk = 0;
-        for (let i = 0; i < ships.length; i += 1) {
-            if (ships[i].isSunk()) allShipsSunk += 1;
-        }
+        // let allShipsSunk = 0;
+        // for (let i = 0; i < ships.length; i += 1) {
+        //     if (ships[i].isSunk()) allShipsSunk += 1;
+        // }
 
-        if (allShipsSunk >= 5) return true;
+        // if (allShipsSunk >= 5) return true;
+        // return false;
+        if (ships.length === 0) return true;
         return false;
     };
 
