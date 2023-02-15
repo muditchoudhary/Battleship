@@ -22,8 +22,12 @@
     align-items: center;
 }
 .message-displayer {
-    font-size: 41px;
-    padding: 22px 22px;
+    font-size: 60px;
+    padding: 0px 22px;
+    padding-top: 40px;
+    text-align: center;
+    color: white;
+    word-spacing: 18px;
 }
 .pre-attack-hover {
     background: green;
@@ -45,4 +49,9 @@
 }
 .game-over {
     cursor: not-allowed;
+}
+.button-three {
+    position: absolute;
+    left: 45%;
+    top: 87%;
 }

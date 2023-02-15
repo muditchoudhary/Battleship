@@ -4,6 +4,22 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
     const robotShipObjs = robotBoard.ships;
     const playerShipObjs = playerBoard.ships;
 
+    const resetGame = () => {
+        window.location.reload();
+    };
+
+    const createResetButton = (parent) => {
+        const playBtn = document.createElement("a");
+        playBtn.textContent = "Reset";
+        for (let i = 0; i < 4; i += 1) {
+            playBtn.append(document.createElement("span"));
+        }
+        playBtn.classList.add("button", "button-three");
+        playBtn.addEventListener("click", resetGame);
+        playBtn.style.setProperty("--color", "#6eff3e");
+        parent.appendChild(playBtn);
+    };
+
     const checkAnyShipSunk = (ships, gameBoard) => {
         let response;
         let loopBreak = false;
@@ -30,7 +46,8 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
     };
 
     const displayWinner = (winnerName) => {
-        alert(`Game Over!! Captain ${winnerName} has won!!`);
+        const messageDisplayer = document.querySelector(".message-displayer");
+        messageDisplayer.textContent = `Game Over!! Captain ${winnerName} has won!!`;
     };
     const removeAllEventsFromGridCells = () => {
         const containers = document.querySelectorAll(".container");
@@ -149,14 +166,13 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
         gameMaincontainer.classList.add("game-main-container");
         const gameMainSubContainer = document.createElement("div");
         const messageDisplayer = document.createElement("div");
-        messageDisplayer.textContent = "Here I will display the message";
         messageDisplayer.classList.add("message-displayer");
-
         renderGrid(gameMainSubContainer, "player", playerBoard);
         renderGrid(gameMainSubContainer, "robot", robotBoard);
         gameMainSubContainer.classList.add("game-main-sub-container");
         gameMaincontainer.appendChild(gameMainSubContainer);
         gameMaincontainer.appendChild(messageDisplayer);
+        createResetButton(gameMaincontainer);
         parent.appendChild(gameMaincontainer);
     };
 
