@@ -118,6 +118,9 @@ const Gameboard = () => {
         get board() {
             return board;
         },
+        get ships() {
+            return ships;
+        },
         placeShip,
         recieveAttack,
         haveShipsSunk,

@@ -33,7 +33,13 @@
 }
 .attack-miss {
     background: wheat;
+    cursor: not-allowed;
 }
 .attack-hit {
     background: red;
+    cursor: not-allowed;
+}
+.ship-has-sunk {
+    background: lightskyblue;
+    cursor: not-allowed;
 }

@@ -1,6 +1,40 @@
 const MainGame = (playerBoard, robotBoard, Player, Robot) => {
     // Global Variables
     const GRIDSIZE = 10;
+    const robotShipObjs = robotBoard.ships;
+    const playerShipObjs = playerBoard.ships;
+
+    const checkAnyShipSunk = (ships, gameBoard) => {
+        let response;
+        let loopBreak = false;
+        for (let i = 0; i < ships.length; i += 1) {
+            if (ships[i].isSunk()) {
+                response = { ship: ships[i], index: i };
+                loopBreak = true;
+                break;
+            }
+        }
+
+        if (loopBreak) {
+            const { ship } = response;
+            const { index } = response;
+            const { row } = ship;
+            const col = ship.colStart;
+            const { colEnd } = ship;
+            const boardRow = gameBoard.board[row];
+            for (let j = col; j <= colEnd; j += 1) {
+                boardRow[j] = 4;
+            }
+            ships.splice(index, 1);
+        }
+    };
+
+    const checkPlayerAnyShipSunk = () => {
+        checkAnyShipSunk(playerShipObjs, playerBoard);
+    };
+    const checkRobotAnyShipSunk = () => {
+        checkAnyShipSunk(robotShipObjs, robotBoard);
+    };
 
     const preAttackHoverExit = (event) => {
         const targetGrid = event.target;
@@ -18,12 +52,10 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
         const row = Number(event.target.getAttribute("data-pos")[0]);
         const col = Number(event.target.getAttribute("data-pos")[1]);
         const parent = document.querySelector(".game-main-sub-container");
-
         Player.attack(row, col);
-        clearParent(parent);
-        renderGrid(parent, "player", playerBoard);
-        renderGrid(parent, "robot", robotBoard);
         Robot.attack();
+        checkPlayerAnyShipSunk();
+        checkRobotAnyShipSunk();
         clearParent(parent);
         renderGrid(parent, "player", playerBoard);
         renderGrid(parent, "robot", robotBoard);
@@ -49,18 +81,31 @@ const MainGame = (playerBoard, robotBoard, Player, Robot) => {
                         grid.classList.add("grid", "attack-miss");
                     } else if (boardArr[i][j] === 3) {
                         grid.classList.add("grid", "attack-hit");
+                    } else if (boardArr[i][j] === 4) {
+                        grid.classList.add("grid", "ship-has-sunk");
                     }
                     grid.classList.add("grid");
                 } else if (whoseBoard === "robot") {
-                    if (boardArr[i][j] === 2) {
-                        grid.classList.add("grid", "attack-miss");
-                    } else if (boardArr[i][j] === 3) {
-                        grid.classList.add("grid", "attack-hit");
-                    }
-                    grid.classList.add("grid", "grid-pointer");
                     grid.addEventListener("click", attackByRobot);
                     grid.addEventListener("mouseover", preAttackHover);
                     grid.addEventListener("mouseleave", preAttackHoverExit);
+                    if (boardArr[i][j] === 2) {
+                        grid.classList.add("grid", "attack-miss");
+                        grid.removeEventListener("click", attackByRobot);
+                        grid.removeEventListener("mouseover", preAttackHover);
+                        grid.removeEventListener("mouseleave", preAttackHoverExit);
+                    } else if (boardArr[i][j] === 3) {
+                        grid.classList.add("grid", "attack-hit");
+                        grid.removeEventListener("click", attackByRobot);
+                        grid.removeEventListener("mouseover", preAttackHover);
+                        grid.removeEventListener("mouseleave", preAttackHoverExit);
+                    } else if (boardArr[i][j] === 4) {
+                        grid.classList.add("grid", "ship-has-sunk");
+                        grid.removeEventListener("click", attackByRobot);
+                        grid.removeEventListener("mouseover", preAttackHover);
+                        grid.removeEventListener("mouseleave", preAttackHoverExit);
+                    }
+                    grid.classList.add("grid", "grid-pointer");
                 }
                 grid.setAttribute("data-pos", String(i) + String(j));
                 row.appendChild(grid);
