@@ -55,3 +55,65 @@
     left: 45%;
     top: 87%;
 }
+
+/* Styles for screen lower than or equal to 1024x900 */
+@media screen and (max-width: 1024px) and (max-height: 900px) {
+    .button-three {
+        left: 45%;
+        top: 583px;
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+    .button-three span:nth-child(1) {
+        left: -30px;
+        width: 18px;
+        height: 3px;
+    }
+    .button-three span:nth-child(2) {
+        top: -30px;
+        width: 3px;
+        height: 18px;
+    }
+    .button-three span:nth-child(3) {
+        right: -30px;
+        width: 18px;
+        height: 3px;
+    }
+    .button-three span:nth-child(4) {
+        bottom: -30px;
+        width: 3px;
+        height: 18px;
+    }
+    .message-displayer {
+        font-size: 30px;
+        padding-top: 30px;
+    }
+}
+/* @media screen and (max-height: 768px) {
+    .container {
+        width: 400px;
+        height: 400px;
+    }
+    .ship-table {
+        width: 130px;
+        height: 452px;
+    }
+    .button-two {
+        left: 39%;
+        top: 540px;
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+    .button-two span:nth-child(1) {
+        left: -40px;
+    }
+    .button-two span:nth-child(2) {
+        top: -40px;
+    }
+    .button-two span:nth-child(3) {
+        right: -40px;
+    }
+    .button-two span:nth-child(4) {
+        bottom: -40px;
+    }
+} */
