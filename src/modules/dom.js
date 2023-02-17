@@ -2,7 +2,7 @@ import mainMenu from "./mainMenu";
 import ShipPlacementScreen from "./shipPlacementScreen";
 import MainGame from "./mainGame";
 import RobotShipPlacement from "./robotShipPlacement";
-import BGVIDEO from "../assets/ocean-waves.mp4";
+import BGVIDEO from "../assets/video/ocean-waves.mp4";
 import BGMUSIC from "../assets/music/naval-battle-music.mp3";
 import BGOCEAN from "../assets/music/sea_waves.mp3";
 import "../styles/menu.css";
@@ -79,6 +79,7 @@ const DOM = () => {
         menu.createNameField(BODY, switchToShipSelectionScreen);
         menu.createBackgroundAudio(BODY, BGMUSIC, 0.3);
         menu.createBackgroundAudio(BODY, BGOCEAN, 0.6);
+        alert("Please allow Sound Permisson in your browser to hear sound!!");
     };
 
     return { initalizeMainMenu };
