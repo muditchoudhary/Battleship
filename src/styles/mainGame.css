@@ -36,15 +36,15 @@
     cursor: crosshair;
 }
 .attack-miss {
-    background: wheat;
+    background: #06cdff;
     cursor: not-allowed;
 }
 .attack-hit {
-    background: red;
+    background: #e25822;
     cursor: not-allowed;
 }
 .ship-has-sunk {
-    background: lightskyblue;
+    background: rgb(44, 44, 44);
     cursor: not-allowed;
 }
 .game-over {
@@ -89,31 +89,3 @@
         padding-top: 30px;
     }
 }
-/* @media screen and (max-height: 768px) {
-    .container {
-        width: 400px;
-        height: 400px;
-    }
-    .ship-table {
-        width: 130px;
-        height: 452px;
-    }
-    .button-two {
-        left: 39%;
-        top: 540px;
-        padding: 10px 20px;
-        font-size: 20px;
-    }
-    .button-two span:nth-child(1) {
-        left: -40px;
-    }
-    .button-two span:nth-child(2) {
-        top: -40px;
-    }
-    .button-two span:nth-child(3) {
-        right: -40px;
-    }
-    .button-two span:nth-child(4) {
-        bottom: -40px;
-    }
-} */
