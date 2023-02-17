@@ -7,7 +7,7 @@ const RobotShipPlacement = (board) => {
     const myBoard = board;
     const FIXEDROWS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     const FIXEDCOLS = {
-        airCraft: [0, 1, 2, 3, 4, 5],
+        airCraft: [0, 1, 2, 3, 4],
         battleship: [0, 1, 2, 3, 4, 5],
         cruiser: [0, 1, 2, 3, 4, 5, 6],
         destroyer: [0, 1, 2, 3, 4, 5, 6, 7],
