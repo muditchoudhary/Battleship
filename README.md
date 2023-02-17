@@ -6,7 +6,7 @@ Classic Battleship game made with JavaScript. This project was part of TheOdinPr
 
 ![Sample Image](Sample/sample-img.png)
 
-<video src="Sample/sample-video.mkv"></video>
+<video src="Sample/sample-video.mp4"></video>
 
 ## Languages/Tools Used
 
